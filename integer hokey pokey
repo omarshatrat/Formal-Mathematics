@@ -1,0 +1,76 @@
+\documentclass[12pt]{amsart}
+\usepackage{amssymb, amscd, amsmath, amsthm, multicol, enumitem}
+\newtheorem*{utheorem}{Theorem}
+\newtheorem*{ucorollary}{Corollary}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem*{ulemma}{Lemma}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{definition}[theorem]{Definition}
+\title{Overview of the Integer Hokey Pokey}
+\author{Omar Shatrat}
+
+
+\begin{document}
+\maketitle
+
+The Integer Hokey Pokey is a research paper by Dr. Cornelia Van Cott that begins with a focus on numbers that can “turn themselves around.” For example, the number 1089 “turns itself around” when multiplied by 9 to become 9801. Similarly, $2178 \times 4 = 8712$. Here, we are seeing a reflection: the $n$-th digit and $n$th-to-last digit switch places throughout the number. 
+
+
+\begin{definition}
+An integer $A$ is an $n$-flip if multiplying it by a certain value n causes the order of the digits to reverse.
+\end{definition}
+
+From this, it should hopefully be clear that no {\em n}-flips exist for {\em n} $\geq$ 10. The reason for this is because multiplying a number by at least 10 means that it gains digits, and this means that the product will not be a reversal of the initial number. 8-flips do not exist for a similar reason; any number that is an 8-flip must start with the number 1 so that it does not gain digits when multiplied by 8. This means that the last digit of a supposed 8-flip would be 1, which is a contradiction since multiplying any number by 8 should yield an even number. Using this same reasoning, we can rule out {\em n}-flips for all positive integer values of {\em n} except for 4 and 9. This means that, in base 10, {\em only} 4 and 9-flips exist!
+
+One way to find new {\em n}-flips is to make palindromes from existing {\em n}-flips. For example, we currently know the set of 9-flips consists of at least 2 numbers: 0 (trivial) and 1089. To find a new 9-flip, we can concatenate these number to form a palindrome such as 1089\textbf{\underline{0}}1089. Multiply this number by 9 and you will indeed find that it reverses itself. What about {\em n}-flips that cannot be made from concatenations? 
+
+\begin{definition}
+A basic n-flip is a n-flip that is not a palindrome of other n-flips. 
+\end{definition}
+
+To try and find the set of all basic 9-flips, note that the first digit of $A$ must be 1 and the second must be 0 in order to preserve the number of integers. Through further investigation, we find that all basic 9-flips must begin with 10, end with 89, and have the rest of the digits in the middle be 9. So, the set is $\{0, 1089, 10989, 109989, 1099989,\dots\}$. The set of basic 4-flips is $\{0, 2178, 21978, 219978, 2199978, \dots\}$. 
+
+Something very interesting happens when we try to find the number of {\em n}-flips with a certain number of digits. Let $a_{n}$ be the number of {\em n}-flips with {\em n} digits. For 9-flips,
+
+\begin{itemize}[label={}]
+ \begin{multicols}{6}
+\item $ a_4 = 1$
+\item $ a_5 = 1$
+\item $ a_6 = 1$
+\item $  a_7 = 1$
+\item  $a_8 = 2$
+\item $ a_9 = 2$
+\item $ a_{10} = 3$
+\item $ a_{11} = 3$
+\item $a_{12} = 5$
+\item $a_{13} = 5$
+\item $a_{14} = 8$
+\item $a_{15} = 8$
+  \end{multicols}
+  \end{itemize}
+
+As we can see, this pattern is producing a Fibonacci sequence repeated twice! The same pattern shows up in 4-flips. To understand why this happens, we need to define some terms to distinguish different types of 9-flips. 
+
+\begin{definition}
+A straddler is a 9-flip that is a palindrome using an odd number of basic 9-flips (eg 1089\textbf{\underline{109989}}1089).
+\end{definition}
+
+\begin{definition}
+ A non-straddler is a 9-flip that is a palindrome using an even number of basic 9-flips.
+\end{definition}
+ Inserting a 0 into the middle of a non-straddler with $2k$ digits makes it have $2k+1$ digits. The same happens when we add 9 to the middle of a straddler containing $2k$ digits. Every 9-flip with an odd number of digits must be a straddler with the middle digit as 0 or another basic 9-flip with an odd number of digits. When we remove the middle 9 or 0 from one of these numbers, it has even digits. This establishes a one-to-one correspondence between 9-flips with $2k$ digits and those with $2k+1$ digits, and this is why we see the repetition in pairs.
+
+To see why the Fibonacci numbers come up, let $S_{2k}$ be the number of straddler 9-flips with $2k$ digits and $N_{2k}$ be the number of non-straddler 9-flips with $2k$ digits. So, $a_{2k}$ = $N_{2k}$ + $S_{2k}$. Through some manipulation, we find that $a_{2k} = N_{2k} + S_{2k} = N_{2k-2} + S_{2k-2} + N_{2k-4} + S_{2k-2} = a_{2k-2} + a_{2k-4}.$ This produces the Fibonacci sequence in the even terms and a similar process produces it in the odd terms. We are thus left with the following theorem:
+
+\begin{theorem}
+Let $a_{m}$ denote the number of 9-flips with $m$ digits. Then we have $a_{2k}$ = $a_{2k+1}$ for all k $\geq$ 1. Moreover, the sequence $a_{2k}$ satisfies the recursive relationship $a_{2k}$ = $a_{2k-2}$ + $a_{2k-4}$ for all k $\geq$ 3, while $a_{2}$ = 0 and $a_{4}$ = 1. That is, $a_{2k}$ and $a_{2k+1}$ are both given by the $(k-1)$st Fibonacci number. 
+\end{theorem}
+
+We arrived at this theorem by showing that the numbers $a_{2n}$ satisfy the same recursive relationship as the Fibonacci numbers. 
+
+As it turns out, $n$-flips are also present in number systems with a base other than 10. Furthermore, every base $b$ contains a $(b-1)$-flip. For example, base 3 contains a 2-flip, base 4 contains a 3-flip, and so on. The Fibonacci sequence comes up again in some of these bases, but not all of them. In some bases like base 8 for example, the number of 5-flips follows the powers of 2.
+
+Incidentally, $n$-flips are not the only numbers with a capacity to dance. Other numbers known as $cyclical$ $numbers$ are able to “slide to the left” when multiplied by a given integer. For example, $142857 \times 3 = 428571$ and $142857 \times 2 = 285714$. Cyclic numbers are very hard to find, with the next two after 142,857 having 16 and 18 digits respectively. Cyclic numbers also correspond to what are known as $full$ $period$ $primes$; for example, 142,857 corresponds to 7 because 1/7 = $.\overline{142857}$. The next two cyclic numbers correspond to 17 and 19. It is currently unknown whether there are infinitely many full period primes. 
+
+\end{document}
